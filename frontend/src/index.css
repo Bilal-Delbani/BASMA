@@ -1,0 +1,486 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+a:hover {
+  color: #535bf2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* This helps with consistent sizing across elements */
+}
+
+body {
+  display: flex;
+  background-image: url(assets/bgImg.png);
+  background-repeat: repeat;
+  background-size: 30px 30px;
+  margin: 0;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#root{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 80%;
+  height: 90%;
+  border-radius: 8px;
+}
+
+.Home-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: -100;
+  left: 0;
+  width: 90%;
+  height: 90%;
+}
+
+header{
+  display: flex;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100px;
+  width: 100%;
+}
+.link-part{
+    position: relative;
+    float: left;
+    width: 40%;
+    text-align: left;
+    padding-left: 6%;
+    height: 100%;
+}
+.link-part > a {
+  position: absolute;
+  top: 75%;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-part > a:hover {
+  color: #747bff;
+}
+
+.image-part{
+  position: relative;
+  float: left;
+  width: 15%;
+
+}
+.image-part > img {
+  width: 100%;
+  height: 100px;
+  padding-top: 10px;
+}
+
+.image-part > span{
+  position: absolute;
+  top: 77%;
+  left: -10%;
+  font-weight: 520;
+  color: rgb(12, 113, 69);
+  font-size: 13px;
+}
+
+
+.main-carousel{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 350px;
+  position: relative;
+  margin-top: 12px;
+}
+.main-carousel  img {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+
+/* Navigation Menu */
+.nav-menu{
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+/* .menu for desktop and .active for mobile */
+.menu, .active{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* unique design for mobile menu  */
+.active{
+  flex-direction: column;
+  background-color: white;
+  width: 160px;
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+/* menu items */
+.menu li, .active li{
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 13px;
+  border-left: 1px solid white;
+
+}
+.active li{
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.3);
+  border-left: 1.5px solid rgba(0, 0, 0, 0.3);
+  padding: 0;
+}
+
+/* menu links */
+.menu a, .active a{
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 15px 20px;
+}
+.menu a{
+  border-bottom: 3px solid transparent;
+}
+
+.active a{
+  color: black;
+  padding: 8px 15px;
+}
+
+
+
+/* special for the Home item */
+#Home{
+  border-left: none;
+}
+.active > #Home{
+  border-left: 1.5px solid rgba(0, 0, 0, 0.3);
+
+}
+
+
+/* animations for hovering over items */
+.menu a:hover{
+  animation: slideBorder 0.6s ease-in-out forwards;
+}
+
+.active a:hover{
+  animation: mobileSlideBorder 0.6s ease-in-out forwards;
+}
+
+
+/* burger icon appears for mobile devices */
+.burger-menu {
+  display: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
+/* box indicators for images carousel for desktop  */
+.carousel-indicators {
+  display: flex;
+  justify-content: center; 
+  position: absolute;
+  top: 300px;
+  left: 85%;
+  gap: 10px; 
+  margin-top: 20px; 
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  background-color: rgb(220, 10, 10); 
+  border: 1px solid rgb(220, 10, 10); 
+  transition: background-color 0.3s ease; 
+}
+
+.indicator.active {
+  background-color: white; 
+  border-color: #CCC; 
+}
+
+
+
+/* arrows for images carousel for mobile responsiveness */
+.arrowCarousel{
+  position: absolute;
+  display: none;
+  top: 50%;
+  width: 100%;
+}
+
+.leftArrow, .rightArrow{
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, rgb(220, 10, 10), rgb(220, 10, 10));
+  clip-path: polygon(100% 50%, 0 0, 0 100%);
+  margin: 0 20px;
+}
+
+.leftArrow {
+  transform: rotate(180deg);
+}
+
+.rightArrow{
+  position: absolute;
+  left: 86%;
+}
+
+
+/* news summary */
+.newsSummary{
+    position: absolute;
+    top: 250px;
+    left: 30px;
+    width: 40%;
+    color: white;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    text-shadow: 
+    1px 1px 0 black,  /* Bottom-right */
+    -1px 1px 0 black, /* Bottom-left */
+    1px -1px 0 black, /* Top-right */
+    -1px -1px 0 black; /* Top-left */
+
+}
+
+.title{
+    display: inline;
+    border-bottom: 2px solid white;
+}
+
+.summary{
+  margin-top: 10px;
+}
+
+
+/* media query for 900px screen size */
+@media (max-width: 900px){
+  .image-part{
+    width:20%;
+  }
+
+  .image-part > span{
+    font-size: 15px;
+    left: -18%;
+  }
+
+  .link-part > a {
+    top: 60%;
+    font-size: 17px;
+  }
+
+}
+
+/* media query for 768px screen size */
+@media (max-width: 768px){
+  .image-part{
+    width:20%;
+  }
+
+  .image-part > span{
+    font-size: 12px;
+    left: -20%;
+  }
+
+  .link-part > a {
+    top: 60%;
+    font-size: 13px;
+  }
+  body{
+    background-image: none;
+  }
+  #root{
+    width: 90%;
+    height: 90%;
+  }
+  .menu{
+    display: none;
+  }
+  .burger-menu {
+    display:inline; 
+  }
+
+  .arrowCarousel{
+    display: flex;
+  }
+  .indicator{
+    display: none;
+  }
+
+  .leftArrow, .rightArrow{
+    width: 20px;
+    height: 20px;
+  }
+  .rightArrow{
+    left: 83%;
+  }
+  .newsSummary{
+    width: 80%;
+    font-size: 14px;
+    font-weight: 300;
+  }
+}
+
+
+/* media query for 480px screen size */
+
+@media (max-width: 480px){
+  .image-part{
+    width:20%;
+  }
+
+  .image-part > span{
+    font-size: 10px;
+    left: -30%;
+  }
+
+  .link-part > a {
+    top: 50%;
+    font-size: 12px;
+  }
+  body{
+    background-image: none;
+  }
+  #root{
+    width: 90%;
+    height: 90%;
+  }
+
+  .menu{
+    display: none;
+  }
+  .burger-menu {
+    display: inline; 
+  }
+
+  .arrowCarousel{
+    display: flex;
+  }
+  .indicator{
+    display: none;
+  }
+  .leftArrow, .rightArrow{
+    width: 18px;
+    height: 18px;
+  }
+  .rightArrow{
+    left: 80%;
+  }
+
+  .newsSummary{
+    width: 80%;
+    font-size: 14px;
+    font-weight: 300;
+  }
+}
+
+
+/* animations */
+
+/* the nav menu on mobile screen sizes */
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 500px; 
+    opacity: 1;
+  }
+}
+
+/* hovering over the nam menu item on desktop screen sizes */
+@keyframes slideBorder {
+    100%{
+      border-bottom: 3px solid white;
+      border-left: 1px solid #747bff;
+      background-color: #747bff;
+    }
+}
+
+/* hovering over the nam menu item on mobile screen sizes */
+@keyframes mobileSlideBorder {
+  100%{
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+
+
+
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    /* color: #747bff; */
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
