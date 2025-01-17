@@ -12,6 +12,7 @@ export default function NavMenu(){
             return setFlag(true)
         }
       });
+
       
     return(
         <nav className="nav-menu">
