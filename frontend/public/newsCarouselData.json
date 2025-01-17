@@ -1,54 +1,64 @@
 [
     {
       "id": 1,
+      "category":"News",
       "img": {
         "src": "/images/news.jpg",
         "alt": "News Image",
         "ariaLabel": "News Image"
       },
       "title":"Military expert:",
-      "summary":"Israel seeks to establish its right to strike the West Bank whenever it chooses."
+      "summary":"Israel seeks to establish its right to strike the West Bank whenever it chooses.",
+      "class":"large-box"
     },
     {
       "id": 2,
+      "category":"Economy",
       "img": {
         "src": "/images/economy.jpg",
         "alt": "Economy Image",
         "ariaLabel": "Economy Image"
       },
       "title":"Economy:",
-      "summary": "The pound hits its lowest level in 14 months as bond yields rise."
+      "summary": "The pound hits its lowest level in 14 months as bond yields rise.",
+      "class":"small-box"
     },
     {
       "id": 3,
+      "category":"Sports",
       "img": {
         "src": "/images/sports.jpg",
         "alt": "Sports Image",
         "ariaLabel": "Sports Image"
       },
       "title":"LIV vs FOR:",
-      "summary": "Liverpool faces the \"toughest challenge\" in the league... Will the nightmare repeat?"
+      "summary": "Liverpool faces the \"toughest challenge\" in the league... Will the nightmare repeat?",
+      "class":"small-box"
     },
     {
       "id": 4,
+      "category":"Culture",
       "img": {
         "src": "/images/culture.jpg",
         "alt": "Culture Image",
         "ariaLabel": "Culture Image"
       },
       "title":"The Ethno Libya Exhibition:",
-      "summary":"A narrative of the history of Libyan tribes in a work that combines visual arts with literature."
+      "summary":"A narrative of the history of Libyan tribes in a work that combines visual arts with literature.",
+      "class":"small-box"
     },
 
     {
       "id": 5,
+      "category":"Videos and Images",
       "img": {
         "src": "/images/video.jpg",
         "alt": "Video and Images",
         "ariaLabel": "Video and Images"
       },
       "title":"Video Available!",
-      "summary": "Twitter users about the Jenin bombing: Did Israel intend to strip the last masks off the face of the Authority?"
+      "summary": "Twitter users about the Jenin bombing: Did Israel intend to strip the last masks off the face of the Authority?",
+      "class":"small-box"
     }
   ]
   
