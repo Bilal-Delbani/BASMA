@@ -362,12 +362,9 @@ header{
   top: 300px;
   left: 20px;
 }
-.newsSummary + button:hover{
-  animation: buttonAnimation 1s ease-in-out 1 alternate;
 
-}
 
-.news-categories button:hover {
+.news-categories button:hover, .newsSummary + button:hover {
     animation: buttonAnimation 1s ease-in-out 1 alternate;
 
 }
