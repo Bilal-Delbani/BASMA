@@ -12,7 +12,7 @@ export default function Carousel(props){
                 <h3 className="title">{props.title}</h3>
                 <p className="summary">{props.summary}</p>
             </div>
-            <button>More</button>
+            <button className="button-more"><span>More</span></button>
         </>
     )
 }
