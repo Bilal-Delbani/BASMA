@@ -324,7 +324,6 @@ header{
   height: 65%;
   object-fit:fill;
   border-radius: 5px 5px 0 0;
-
 }
 
 .large-box img{
@@ -354,6 +353,7 @@ header{
   text-align: center;
   align-items: center;
   margin: 0 12px;
+  display: inline-block;
 }
 
 .newsSummary + button{
@@ -363,16 +363,18 @@ header{
   left: 20px;
 }
 .newsSummary + button:hover{
-  background-color: red;
+  animation: buttonAnimation 1s ease-in-out 1 alternate;
+
 }
 
 .news-categories button:hover {
-    background-color: forestgreen;
+    animation: buttonAnimation 1s ease-in-out 1 alternate;
+
 }
 
 
 .small-box:hover, .large-box:hover{
-  border: 2px solid #747bff;
+  animation: borderAnimation 1s linear 1; /* 2s animation */
   cursor: pointer;
 }
 
@@ -641,11 +643,13 @@ form > input {
   align-items: middle;
   justify-content: center;
   margin-right: 10px;
-
+  display: inline-block;
 }
 
 .fa:hover {
-    background-color: forestgreen;
+
+    animation: buttonAnimation 1s ease-in-out 1 alternate;
+
 }
 
 .fa-facebook {
@@ -685,6 +689,7 @@ form > input {
 .footer-right a:hover{
   color: #747bff;
 }
+
 
 
 
@@ -1004,21 +1009,43 @@ form > input {
 
 
 
-
-
-
-
-
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes buttonAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
   }
-  a:hover {
-    /* color: #747bff; */
-  /* } */
-  /* button {
-    background-color: #f9f9f9;
-  } */
-/* } */
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+
+@keyframes borderAnimation {
+  0% {
+    border-width: 2px 2px 2px 2px; /* Top border starts growing */
+    border-color: darkcyan lightgray lightgray lightgray;
+  }
+  25% {
+    border-width: 2px 2px 2px 2px; /* Top and right borders */
+    border-color: darkcyan darkcyan lightgray lightgray;
+  }
+  50% {
+    border-width: 2px 2px 2px 2px; /* Top, right, and bottom borders */
+    border-color: darkcyan darkcyan darkcyan lightgray;
+  }
+  75% {
+    border-width: 2px 2px 2px 2px; /* Complete border */
+    border-color: darkcyan darkcyan darkcyan darkcyan;
+  }
+  100% {
+    border-width: 2px 2px 2px 2px; /* Reset to starting point */
+    border-color: darkcyan lightgray lightgray lightgray;
+  }
+}
