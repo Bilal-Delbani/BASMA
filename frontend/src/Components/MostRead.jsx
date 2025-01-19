@@ -3,8 +3,12 @@ import mostRead from "../assets/most-read.jpg"
 export default function MostRead(){
     return(
         <div className="most-read-section">
-            
+
             <div className="most-read-left">
+                <img src={mostRead} alt="most-read-image" />
+            </div>
+
+            <div className="most-read-right">
                 <h3 id="most-read-title">Most Read</h3>
 
                 <div className="most-read-row1">
@@ -39,10 +43,6 @@ export default function MostRead(){
                     </div>
                 </div>
 
-            </div>
-
-            <div className="most-read-right">
-                <img src={mostRead} alt="most-read-image" />
             </div>
         </div>
     )
