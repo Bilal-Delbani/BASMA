@@ -15,6 +15,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Public Folder and Generated Files
+/public/index.html
+/public/static/
+*.cache
+.cache/
+
 # Editor directories and files
 .vscode/
 !.vscode/extensions.json
@@ -62,3 +68,8 @@ auth.json
 *.bak
 *.swp
 *.swo
+
+# Additional for Cleanup
+# Ignore all system caches and temporary files
+*.tmp
+*.temp
