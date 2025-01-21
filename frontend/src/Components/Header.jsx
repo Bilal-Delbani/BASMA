@@ -1,4 +1,4 @@
-import babelImage from "/babelLogo.png"
+import babelImage from "../assets/babelLogo.png"
 
 export default function Header(){
     return(

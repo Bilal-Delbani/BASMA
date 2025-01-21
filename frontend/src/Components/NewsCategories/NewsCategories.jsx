@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
+
 import { useState, useEffect } from "react";
 import Category from "./Category";
 
-export default function NewsCategories(){
+export default function NewsCategories({onCategoryClick}){
 
 
     const [news, setNews] = useState([]);
@@ -17,6 +19,7 @@ export default function NewsCategories(){
             <Category
                 key={item.id}
                 {...item}
+                onCategoryClick = {onCategoryClick}
             />
         );
     });
