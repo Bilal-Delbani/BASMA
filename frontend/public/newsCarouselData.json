@@ -44,22 +44,6 @@
     },
     {
       "id": 4,
-      "category":"Culture",
-      "img": {
-        "src": "/images/culture.jpg",
-        "alt": "Culture Image",
-        "ariaLabel": "Culture Image"
-      },
-      "title":"The Ethno Libya Exhibition:",
-      "summary":"A narrative of the history of Libyan tribes in a work that combines visual arts with literature.",
-      "class":"small-box",
-      "navigation" : "culture",
-      "article": "From the city of Benghazi in the east to the capital Tripoli in the west, the Ethno Libya exhibition tells a historical narrative about the prehistoric era in Libya, with oil paintings and sculptures conveying the literary history of the country and its tribes.\n\nThe young artist Shifa Salem participates in the 'Ethno Libya' exhibition with 6 oil paintings, which she says are a translation of the novel 'Death of Miss Alexandrine Tenn in Libya' by critic and writer Mohamed Abdullah Al-Tarhouni, and the book 'The Orbit of Libyan Snakes: A Dialogue with the Builders of the Ancient World' by poet and novelist Hamza Al-Falah.\n\nAl-Falah's book is a historical narrative in literary style about the lives of ancient Libyan tribes, addressing issues of identity and heritage in a poetic style. Meanwhile, Al-Tarhouni's novel tells the story of a Dutch explorer who came to Libya and died there in 1869.\n\nThe three participants in the exhibition are from Benghazi, and their first exhibition in the city lasted 7 days last December at Bernici University. In Tripoli, their exhibition started at the Iskander House of Arts in the old town on January 7 and concludes today, Monday.\n\nShifa told Reuters, 'The texts that my work is based on talk about the rebuilding of the legend of the Libyan tribes, focusing on the prehistoric period, the Libyan, Greek, and Roman tribes. But I focused on the Libyan tribes period.'"
-
-    },
-
-    {
-      "id": 5,
       "category":"Videos and Images",
       "img": {
         "src": "/images/video.jpg",
@@ -76,6 +60,23 @@
       "navigation" : "videos",
       "article": "The Paris Olympics, held last year, was not without criticism, starting from the opening ceremony that caused controversy and led to an official apology to some Christian communities, all the way to the poor-quality medals given to the winners.\n\nRecently, there have been major criticisms regarding the poor quality of the medals distributed by France to the Olympic winners, which rusted and lost their coating a few days after being received.\n\nOlympic medals represent a dream for every athlete, as they are kept for more than 100 years as part of global sports history and a culmination of years of effort and hard work.\n\nHowever, the Paris 2024 Olympic medals quickly cracked, showed rust, and lost their coating shortly after the competition, which was held last July.\n\nAccording to the January 15, 2025 episode of the program 'Shabakat,' dozens of winners of gold and bronze medals were surprised by the damage to their medals.\n\nIn August, just days after the controversial Olympics, several athletes posted videos revealing the catastrophic flaws in their medals.\n\nAmerican skater Nyjah Houston posted a picture on his personal accounts showing the damage to his medal just 10 days after winning it.\n\nFrench swimmer Johan Ndoui Brod also posted a picture of his medal, humorously commenting, 'It dates back to the Paris Olympics of 1924.'\n\nAccording to the French newspaper 'Le Lettre,' the Paris 2024 organizing committee received over 100 defective medals to replace them with new ones.\n\nThe surprise was that the French Mint, which produced the Olympic medals (5,000 in total), used a new coating due to the European Union's ban on coatings containing toxic materials.\n\nHowever, the French Mint did not carry out adequate tests on the new coating, which led to the damage of the medals, resulting in the dismissal of three senior officials responsible for production and quality, according to its CEO.\n\nActivists on social media viewed the situation with the medals as an extension of the 'poor' opening ceremony of the event. One activist named 'Turki' wrote, 'Not only was their opening ceremony poor and disgusting, unsuitable for family viewers, but now their medals are rusting.'\n\nAnother user, 'Thakemz,' wrote, 'This is embarrassing for France, especially since the medals represent the symbolic achievement of the Olympics.' He added, 'If this is the result of using low-quality materials, it could reflect economic pressure or poor planning.'\n\nKhadija commented, 'The medals on 'Shein' (referring to the Chinese online store) are of better quality than these, and even the design is awful and doesn’t represent the sports at all.' While Suleiman wrote, 'The medal scandal came out in time, and France is now part of the past, moving backward.'\n\nFinally, Hassan wrote, 'This is a general policy for the entire West, which now relies only on marketing and has forgotten the meaning of quality.'\n\nThis was not the first time the French Mint faced such a scandal. In 2023, the famous Chinese company Huawei returned 12,000 medals for the same reason, a year before the Beijing Olympics, meaning the Mint had enough time to conduct tests on the new coating.\n\nThe Mint also lost nearly a million dollars that same year due to a mistake in printing the euro currency, which did not meet the standard European regulations."
 
+    },
+    {
+      "id": 5,
+      "category":"Culture",
+      "img": {
+        "src": "/images/culture.jpg",
+        "alt": "Culture Image",
+        "ariaLabel": "Culture Image"
+      },
+      "title":"The Ethno Libya Exhibition:",
+      "summary":"A narrative of the history of Libyan tribes in a work that combines visual arts with literature.",
+      "class":"small-box",
+      "navigation" : "culture",
+      "article": "From the city of Benghazi in the east to the capital Tripoli in the west, the Ethno Libya exhibition tells a historical narrative about the prehistoric era in Libya, with oil paintings and sculptures conveying the literary history of the country and its tribes.\n\nThe young artist Shifa Salem participates in the 'Ethno Libya' exhibition with 6 oil paintings, which she says are a translation of the novel 'Death of Miss Alexandrine Tenn in Libya' by critic and writer Mohamed Abdullah Al-Tarhouni, and the book 'The Orbit of Libyan Snakes: A Dialogue with the Builders of the Ancient World' by poet and novelist Hamza Al-Falah.\n\nAl-Falah's book is a historical narrative in literary style about the lives of ancient Libyan tribes, addressing issues of identity and heritage in a poetic style. Meanwhile, Al-Tarhouni's novel tells the story of a Dutch explorer who came to Libya and died there in 1869.\n\nThe three participants in the exhibition are from Benghazi, and their first exhibition in the city lasted 7 days last December at Bernici University. In Tripoli, their exhibition started at the Iskander House of Arts in the old town on January 7 and concludes today, Monday.\n\nShifa told Reuters, 'The texts that my work is based on talk about the rebuilding of the legend of the Libyan tribes, focusing on the prehistoric period, the Libyan, Greek, and Roman tribes. But I focused on the Libyan tribes period.'"
+
     }
-  ]
+
+    
+]
   
