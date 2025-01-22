@@ -1,18 +1,49 @@
+/* eslint-disable react/prop-types */
+
 import NavMenu from "./NavMenu";
 import Carousel from "./Carousel"
 import { useState, useEffect } from "react";
 
-export default function MainNewsCarousal(){
-
+export default function MainNewsCarousal(props){
+    const [englishData, setEnglishData] = useState([]);
+    const [arabicData, setArabicData] = useState([]);
     const [images, setImages] = useState([]);
     const [index, setIndex] = useState(0);
-      
+
+
+    // Fetch both English and Arabic data
     useEffect(() => {
-        fetch('/newsCarouselData.json')
-        .then((response) => response.json())
-        .then((data) => setImages(data))
-        .catch((error) => console.error("Error loading JSON:", error));
+        const fetchImages = async () => {
+            try {
+                const [engResponse, arResponse] = await Promise.all([
+                    fetch('/newsCarouselData.json'),
+                    fetch('/newsCarouselDataAr.json')
+                ]);
+
+                const [engData, arData] = await Promise.all([
+                    engResponse.json(),
+                    arResponse.json()
+                ]);
+
+                setEnglishData(engData);
+                setArabicData(arData);
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchImages();
     }, []);
+
+
+    useEffect(() => {
+        if (props.isArabic) {
+            setImages(arabicData);
+        } else {
+            setImages(englishData);
+        }
+    }, [props.isArabic, englishData, arabicData]);
+
 
 
 
@@ -21,6 +52,7 @@ export default function MainNewsCarousal(){
             <Carousel
                 key={item.id}
                 {...item}
+                isArabic={props.isArabic}
             />
         )
     }
@@ -32,14 +64,13 @@ export default function MainNewsCarousal(){
       setIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
 
-    // Clear the interval when the component unmounts
     return () => clearInterval(interval);
   }, [images.length]); // Dependency array to restart the effect if the images change
 
 
     return(
         <main className="main-carousel">
-            <NavMenu />
+            <NavMenu isArabic={props.isArabic} setIsArabic={props.setIsArabic}/>
             {carousel.length > 0 && carousel[index]}
 
             {/* arrows for mobile screen sizes */}
@@ -49,8 +80,7 @@ export default function MainNewsCarousal(){
             </div>
 
             {/* box indicators for desktop screen sizes */}
-
-            <div className="carousel-indicators">
+            <div className={`carousel-indicators ${props.isArabic ? 'rtl' : ''}`}>
                 {images.map((_, idx) => (
                     <div
                         key={idx}
@@ -63,4 +93,3 @@ export default function MainNewsCarousal(){
         </main>
     )
 }
-

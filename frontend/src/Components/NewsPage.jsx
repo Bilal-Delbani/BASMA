@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from "react"
+import { useEffect } from 'react';
+
 export default function NewsPage({data, onBack}){
-    
+    useEffect(() => {
+        // Scroll to top whenever the page is rendered
+        window.scrollTo(0, 0);
+      }, []);
     return(
        <article className="news-details">
             <div className="news-details-title">
@@ -20,7 +25,7 @@ export default function NewsPage({data, onBack}){
                     )
                 }
             </div>
-            <div className="news-details-article">
+            <div className={`news-details-article ${data.isArabic ? 'rtl' : ''}`}>
                 {data.article.split('\n').map((line, index) => (
                     <React.Fragment key={index}>
                     {line}
@@ -32,3 +37,4 @@ export default function NewsPage({data, onBack}){
        </article>
     )
 }
+
