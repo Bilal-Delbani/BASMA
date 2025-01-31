@@ -33,43 +33,71 @@ lerna-debug.log*
 *.sw?
 
 # Laravel Specific (Backend)
-vendor/
-npm-debug.log
-yarn-error.log
+
+# vendor/
+# npm-debug.log
+# yarn-error.log
+
+
+
 
 # Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
+
+# bootstrap/compiled.php
+# app/storage/
+
+
+
 
 # Laravel 5 & Lumen specific
-public/storage
-public/hot
+
+# public/storage
+# public/hot
+
+
 
 # Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
 
-storage/*.key
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
+# public_html/storage
+# public_html/hot
+
+
+
+# storage/*.key
+# .env
+# Homestead.yaml
+# Homestead.json
+# /.vagrant
+# .phpunit.result.cache
+
+
 
 # Public and Storage
-/public/build
-/storage/pail
-.env.backup
-.env.production
-.phpactor.json
-auth.json
+
+
+# /public/build
+# /storage/pail
+# .env.backup
+# .env.production
+# .phpactor.json
+# auth.json
+
+
 
 # Backup Files
-*.bak
-*.swp
-*.swo
+
+
+
+# *.bak
+# *.swp
+# *.swo
+
+
 
 # Additional for Cleanup
 # Ignore all system caches and temporary files
-*.tmp
-*.temp
+
+
+
+# *.tmp
+# *.temp
