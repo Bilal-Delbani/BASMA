@@ -124,6 +124,12 @@
     margin: 0 0 15px 0;
 }
 
+.form-guest-question{
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+
 
 /* styling for arabic switch */
 .close-button.rtl{
@@ -143,5 +149,9 @@
 @media (max-width: 480px){
     .form-input  i {
         height: 36px;
+    }
+    .close-button.rtl{
+      right: 275px;
+
     }
 }

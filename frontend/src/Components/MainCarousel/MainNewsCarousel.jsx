@@ -3,8 +3,11 @@
 import NavMenu from "./NavMenu";
 import Carousel from "./Carousel"
 import { useState, useEffect } from "react";
+import { useStateContext } from "../../contexts/contextProvider.jsx";
 
-export default function MainNewsCarousal(props){
+
+export default function MainNewsCarousal(){
+    const {isArabic} = useStateContext();
     const [englishData, setEnglishData] = useState([]);
     const [arabicData, setArabicData] = useState([]);
     const [images, setImages] = useState([]);
@@ -37,12 +40,12 @@ export default function MainNewsCarousal(props){
 
 
     useEffect(() => {
-        if (props.isArabic) {
+        if (isArabic) {
             setImages(arabicData);
         } else {
             setImages(englishData);
         }
-    }, [props.isArabic, englishData, arabicData]);
+    }, [isArabic, englishData, arabicData]);
 
 
 
@@ -52,7 +55,6 @@ export default function MainNewsCarousal(props){
             <Carousel
                 key={item.id}
                 {...item}
-                isArabic={props.isArabic}
             />
         )
     }
@@ -70,7 +72,7 @@ export default function MainNewsCarousal(props){
 
     return(
         <main className="main-carousel">
-            <NavMenu isArabic={props.isArabic} setIsArabic={props.setIsArabic}/>
+            <NavMenu />
             {carousel.length > 0 && carousel[index]}
 
             {/* arrows for mobile screen sizes */}
@@ -80,7 +82,7 @@ export default function MainNewsCarousal(props){
             </div>
 
             {/* box indicators for desktop screen sizes */}
-            <div className={`carousel-indicators ${props.isArabic ? 'rtl' : ''}`}>
+            <div className={`carousel-indicators ${isArabic ? 'rtl' : ''}`}>
                 {images.map((_, idx) => (
                     <div
                         key={idx}

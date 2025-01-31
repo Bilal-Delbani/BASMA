@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Category from "./Category";
+import { useStateContext } from "../../contexts/contextProvider.jsx";
 
-export default function NewsCategories({onCategoryClick, isArabic}){
+export default function NewsCategories({onCategoryClick}){
+    const {isArabic} = useStateContext();
 
     const [englishData, setEnglishData] = useState([]);
     const [arabicData, setArabicData] = useState([]);
@@ -49,7 +51,6 @@ export default function NewsCategories({onCategoryClick, isArabic}){
             <Category
                 key={item.id}
                 {...item}
-                isArabic={isArabic}
                 onCategoryClick = {onCategoryClick}
             />
         );

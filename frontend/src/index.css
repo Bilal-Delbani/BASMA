@@ -80,6 +80,21 @@ header{
 .link-part > a:hover {
   color: #747bff;
 }
+.link-part > .logout-link{
+  color: rgb(220, 10, 10) !important;
+}
+.link-part > .logout-link:hover{
+  color: red !important;
+}
+
+.link-part > span{
+  color: darkslategrey;
+  position: absolute;
+  top: 20px;
+  font-size: 20px;
+  font-weight: 800;
+
+}
 
 .image-part{
   position: relative;
@@ -942,13 +957,13 @@ ul.rtl li {
 
 }
 
-.register-form.rtl > button{
+.footer-form.rtl > button{
   float: right;
   border-radius: 0 15px 15px 0;
 
 }
 
-.register-form.rtl > input{
+.footer-form.rtl > input{
   float: left;
   border-radius: 15px 0 0 15px;
   direction: rtl;
@@ -987,6 +1002,44 @@ ul.rtl li {
   direction: rtl;
 }
 
+
+/* guest message */
+.guest-message-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  margin: 50px 0 0 0;
+  padding: 50px;
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
+  width: 90%;
+  font-size: 20px;
+  font-weight: 700;
+  font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.register-button{
+  background-color: rgb(220, 10, 10);
+  color: white;
+  height: 50px;
+  width: 150px;
+  position: relative;
+  float: left;
+  border: none;
+  line-hight: 50px;
+  vertical-align: middle;
+  align-items: center;
+  font-weight: 700;
+  margin: 80px 0;
+
+}
+.register-button:hover {
+  background-color: red;
+}
+
+
+
 /* media query for 1028px screen size */
 @media (max-width: 1028px){
 
@@ -1003,6 +1056,8 @@ ul.rtl li {
     top: 70%;
     font-size: 17px;
   }
+
+
   .menu{
     display: none;
   }

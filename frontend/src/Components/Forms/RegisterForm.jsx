@@ -1,39 +1,48 @@
 /* eslint-disable react/prop-types */
 
-import "./RegisterForm.css"; // Add styles for the form
-import { useState, useContext } from "react";
-import AuthContext from '../../context/AuthContext';
+ import "./RegisterForm.css"; // Add styles for the form
+import { useState } from "react";
+import { useStateContext } from "../../contexts/contextProvider.jsx";
+import { Link, useNavigate } from "react-router-dom";
+// import AuthContext from '../../context/AuthContext';
 
-export default function RegisterForm({ isOpen, onClose, isArabic }) {
-  
-    const { register } = useContext(AuthContext);
+export default function RegisterForm() {
+    const {isArabic} = useStateContext();
+    const navigate = useNavigate();
+
+    // const { register } = useContext(AuthContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
-    const [errors, setErrors] = useState({}); // Stores validation errors
 
-    if (!isOpen) return null;
+    // const [errors, setErrors] = useState({}); // Stores validation errors
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await register({ name, email, password, password_confirmation });
-            alert('Registered successfully!');
-        } catch (error) {
-            console.log(error);
-            setErrors(error.response?.data?.errors || {});
-        }
-    };
+    // if (!isOpen) return null;
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await register({ name, email, password, password_confirmation });
+    //         alert('Registered successfully!');
+    //     } catch (error) {
+    //         console.log(error);
+    //         setErrors(error.response?.data?.errors || {});
+    //     }
+    // };
+
+    const Submit = (ev) => {
+        ev.preventDefault();
+    }
 
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <button className={`close-button ${isArabic ? 'rtl' : ''}`} onClick={onClose}>&times;</button>
+                <button className={`close-button ${isArabic ? 'rtl' : ''}`} onClick={()=>navigate("/guest")}>&times;</button>
 
                 <h2 className="form-title">{isArabic ? "نموذج التسجيل" : "Registration Form"}</h2>
 
-                <form onSubmit={handleSubmit} className="register-form" method="post">
+                <form onSubmit={Submit} className="register-form" method="post">
                     <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
                         <label htmlFor="user_name"><i className="fa fa-user" aria-hidden="true"></i></label>
                         <input 
@@ -45,7 +54,7 @@ export default function RegisterForm({ isOpen, onClose, isArabic }) {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
-                        {errors.name && <p style={{color:"red"}} className="error">{errors.name[0]}</p>}
+                        {/* {errors.name && <p style={{color:"red"}} className="error">{errors.name[0]}</p>} */}
                     </div>
 
                     <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
@@ -59,7 +68,7 @@ export default function RegisterForm({ isOpen, onClose, isArabic }) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        {errors.email && <p className="error">{errors.email[0]}</p>}
+                        {/* {errors.email && <p className="error">{errors.email[0]}</p>} */}
                     </div>
 
                     <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
@@ -87,6 +96,9 @@ export default function RegisterForm({ isOpen, onClose, isArabic }) {
                             onChange={(e) => setPasswordConfirmation(e.target.value)}
                         />
                     </div>
+                    <p className="form-guest-question">
+                        {isArabic ? "هل لديك حساب؟" : "Already have an Account? "} <Link to='/guest/login'>{isArabic ? "تسجيل الدخول" : "Login"}</Link> 
+                    </p>
 
                     <button type="submit" className="register-button">{isArabic ? "سجّل" : "Register"}</button>
                 </form>

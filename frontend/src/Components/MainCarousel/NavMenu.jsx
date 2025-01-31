@@ -1,8 +1,10 @@
 
 /* eslint-disable react/prop-types */
 import { useState } from "react"
+import { useStateContext } from "../../contexts/contextProvider.jsx";
 
-export default function NavMenu(props){
+export default function NavMenu(){
+    const {isArabic} = useStateContext();
 
     const [flag, setFlag] = useState(true)
 
@@ -24,23 +26,23 @@ export default function NavMenu(props){
     return(
         <nav className="nav-menu">
             <span className="burger-menu" onClick={toggleMenu}>&#9776;</span>
-            {flag && <ul className={`menu ${props.isArabic ? 'rtl' : ''}`}>
-                <li id={`${props.isArabic ? 'Homerlt' : 'Home'}`}><a href="#" aria-label="Home">{`${!props.isArabic ? "Home" : "الرئيسية"}`}</a></li>
-                <li><a href="#" aria-label="News">{`${!props.isArabic ? "News" : "اخبار" }`}</a></li>
-                <li><a href="#" aria-label="Economy">{`${!props.isArabic ? "Economy" : "اقتصاد"}`}</a></li>
-                <li><a href="#" aria-label="Sports">{`${!props.isArabic ? "Sports" : "رياضة"}`}</a></li>
-                <li><a href="#" aria-label="Culture">{`${!props.isArabic ? "Culture" : "ثقافة"}`}</a></li>
-                <li><a href="#" aria-label="Videos and Phots">{`${!props.isArabic ? "Videos and Photos" : "فيديو وصور"}`}</a></li>
-                <li id={`${props.isArabic ? 'Opinion' : ''}`}><a href="#" aria-label="Opinions">{`${!props.isArabic ? "Opinions" : "اراء"}`}</a></li>
+            {flag && <ul className={`menu ${isArabic ? 'rtl' : ''}`}>
+                <li id={`${isArabic ? 'Homerlt' : 'Home'}`}><a href="#" aria-label="Home">{`${!isArabic ? "Home" : "الرئيسية"}`}</a></li>
+                <li><a href="#" aria-label="News">{`${!isArabic ? "News" : "اخبار" }`}</a></li>
+                <li><a href="#" aria-label="Economy">{`${!isArabic ? "Economy" : "اقتصاد"}`}</a></li>
+                <li><a href="#" aria-label="Sports">{`${!isArabic ? "Sports" : "رياضة"}`}</a></li>
+                <li><a href="#" aria-label="Culture">{`${!isArabic ? "Culture" : "ثقافة"}`}</a></li>
+                <li><a href="#" aria-label="Videos and Phots">{`${!isArabic ? "Videos and Photos" : "فيديو وصور"}`}</a></li>
+                <li id={`${isArabic ? 'Opinion' : ''}`}><a href="#" aria-label="Opinions">{`${!isArabic ? "Opinions" : "اراء"}`}</a></li>
             </ul>}
             {!flag && <ul className="active">
-                <li id="Home"><a href="#" aria-label="Home">{`${!props.isArabic ? "Home" : "الرئيسية"}`}</a></li>
-                <li><a href="#" aria-label="News">{`${!props.isArabic ? "News" : "اخبار" }`}</a></li>
-                <li><a href="#" aria-label="Economy">{`${!props.isArabic ? "Economy" : "اقتصاد"}`}</a></li>
-                <li><a href="#" aria-label="Sports">{`${!props.isArabic ? "Sports" : "رياضة"}`}</a></li>
-                <li><a href="#" aria-label="Culture">{`${!props.isArabic ? "Culture" : "ثقافة"}`}</a></li>
-                <li><a href="#" aria-label="Videos and Phots">{`${!props.isArabic ? "Videos and Photos" : "فيديو وصور"}`}</a></li>
-                <li><a href="#" aria-label="Opinions">{`${!props.isArabic ? "Opinions" : "اراء"}`}</a></li>
+                <li id="Home"><a href="#" aria-label="Home">{`${!isArabic ? "Home" : "الرئيسية"}`}</a></li>
+                <li><a href="#" aria-label="News">{`${!isArabic ? "News" : "اخبار" }`}</a></li>
+                <li><a href="#" aria-label="Economy">{`${!isArabic ? "Economy" : "اقتصاد"}`}</a></li>
+                <li><a href="#" aria-label="Sports">{`${!isArabic ? "Sports" : "رياضة"}`}</a></li>
+                <li><a href="#" aria-label="Culture">{`${!isArabic ? "Culture" : "ثقافة"}`}</a></li>
+                <li><a href="#" aria-label="Videos and Phots">{`${!isArabic ? "Videos and Photos" : "فيديو وصور"}`}</a></li>
+                <li><a href="#" aria-label="Opinions">{`${!isArabic ? "Opinions" : "اراء"}`}</a></li>
             </ul>}
 
         </nav>

@@ -4,29 +4,42 @@ import babelImage from "../assets/babelLogo.png"
 // import RegisterForm from "./Forms/RegisterForm"
 // import LoginForm from "./Forms/LoginFom";
 import { useState } from "react";
+import { useStateContext } from "../contexts/contextProvider.jsx";
+import { Link } from "react-router-dom";
 
-
-export default function Header(props){
-
-    const [isRegistrationFormOpen, setIsRegistrationForm] = useState(false);
-
-    const openRegistrationForm = () => setIsRegistrationForm(true);
-    const closeRegistrationForm = () => setIsRegistrationForm(false);
-
+export default function Header(){
+    const {user, token, isArabic} = useStateContext();
+    let name = "Guest:";
+    if(token){
+        name = "Welcome " + user.name;
+    }
+    function headerLink(){
+        if(token){
+            return(
+                <Link to="/guest" className="logout-link">
+                    {isArabic ? "تسجيل الخروج" : "Logout"}
+                </Link>
+            )
+        }
+        else{
+            return(
+                <Link to="/guest/register" className="register-link">
+                    {isArabic ? "تسجيل الدخول" : "Registration"}
+                </Link>
+            )
+        }
+    }
 
     return(
         <header>
             <div className="link-part">
-                <a href="#register" className="register-link" onClick={openRegistrationForm}>{props.isArabic ? "تسجيل الدخول" : "Registration"}
-                </a>
-                {/* <RegisterForm isOpen={isRegistrationFormOpen} onClose={closeRegistrationForm} isArabic={props.isArabic} /> */}
-
-                {/* <LoginForm isOpen={isRegistrationFormOpen} onClose={closeRegistrationForm} isArabic={props.isArabic} /> */}
-                    
+                <span>{name}</span>
+                {headerLink()}
+   
             </div>
             <div className="image-part">
                 <img src={babelImage} alt="Logo" className="logo" />
-                <span>{props.isArabic ? "الأخبار المحلية" : "Local News"}</span>
+                <span>{isArabic ? "الأخبار المحلية" : "Local News"}</span>
             </div>
 
         </header>
