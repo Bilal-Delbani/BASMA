@@ -1,25 +1,26 @@
-import Header from "./Header"
-import MainNewsCarousel from "./MainCarousel/MainNewsCarousel";
-import NewsCategories from "./NewsCategories/NewsCategories";
-import MostRead from "./MostRead"
-import Footer from "./Footer"
-import { useState } from "react";
-import NewsPage from "./NewsPage";
+import Header from "./Header.jsx"
+import MainNewsCarousel from "./MainCarousel/MainNewsCarousel.jsx";
+import NewsCategories from "./NewsCategories/NewsCategories.jsx";
+import MostRead from "./MostRead.jsx"
+import Footer from "./Footer.jsx"
+import NewsPage from "./NewsPage.jsx";
+
 import eng from "../assets/eng.png";
 import ara from "../assets/ara.png";
 
-export default function Home(){
+import { useState } from "react";
+import { useStateContext } from "../contexts/contextProvider.jsx";
+import { Navigate } from "react-router-dom";
 
-    const [isArabic, setIsArabic] = useState(false);
-
-    function toggleLanguage(){
-        setIsArabic(prev => !prev); 
-    }
-
-
-
+export default function DefaultLayout(){
+    const {token, isArabic, setIsArabic} = useStateContext();
     const [showNewsDetails, setShowNewsDetails] = useState(false); 
     const [newsDetails, setNewsDetails] = useState(null);
+
+    if(!token){
+        return <Navigate to='/guest' />
+    }
+
 
     function handleCategoryClick(data) {
         setNewsDetails(data);  
@@ -42,7 +43,7 @@ export default function Home(){
 
                     <div className="settings">
                         <label className="toggle-switch">
-                            <input type="checkbox" onChange={toggleLanguage}/>
+                            <input type="checkbox" onChange={() => setIsArabic()}/>
                             <span className="slider">
                                 <div className="settings-image-container">
                                     <img src={`${isArabic ? ara : eng}`} alt="language-toggle" className="circle-image" />    
@@ -50,11 +51,13 @@ export default function Home(){
                             </span>
                         </label>
                     </div>
-                    <Header isArabic={isArabic} />
-                    <MainNewsCarousel isArabic={isArabic}/>
-                    <NewsCategories onCategoryClick={handleCategoryClick} isArabic={isArabic} />
-                    <MostRead isArabic={isArabic} />
-                    <Footer isArabic={isArabic} />
+                    <Header/>
+                    <MainNewsCarousel />
+                    <NewsCategories onCategoryClick={handleCategoryClick} />
+                    <MostRead />
+                    <Footer />           
+
+
                 </>
             )}
         </article>

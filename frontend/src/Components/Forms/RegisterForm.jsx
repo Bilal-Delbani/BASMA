@@ -1,40 +1,62 @@
 /* eslint-disable react/prop-types */
 
-import "./RegisterForm.css"; // Add styles for the form
-import { useState, useContext } from "react";
-import AuthContext from '../../context/AuthContext';
+ import "./RegisterForm.css"; // Add styles for the form
+import { useRef } from "react";
+import { useStateContext } from "../../contexts/contextProvider.jsx";
+import { Link, useNavigate} from "react-router-dom";
 
-export default function RegisterForm({ isOpen, onClose, isArabic }) {
-  
-    const { register } = useContext(AuthContext);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [password_confirmation, setPasswordConfirmation] = useState('');
-    const [errors, setErrors] = useState({}); // Stores validation errors
+import axiosClient from "../../axiosClient.js";
 
-    if (!isOpen) return null;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await register({ name, email, password, password_confirmation });
-            alert('Registered successfully!');
-        } catch (error) {
-            console.log(error);
-            setErrors(error.response?.data?.errors || {});
+export default function RegisterForm() {
+    const {isArabic, error, setUser, setToken, setError} = useStateContext();
+    const navigate = useNavigate();
+
+    const nameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const password_confirmationRef = useRef();
+
+
+
+    const Submit = (ev) => {
+        ev.preventDefault();
+        const payload = {
+            name: nameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            password_confirmation: password_confirmationRef.current.value,
         }
-    };
+
+        axiosClient.post("/register", payload).then(({data}) =>{
+            setUser(data.user);
+            setToken(data.token);
+        }).catch(err => {
+            const response = err.response;
+            if(response && response.status === 422){
+                if(response.data.errors.name!==''){
+                    setError(prevErrors => ({ ...prevErrors, name: response.data.errors.name }));
+                }
+                if(response.data.errors.email!==''){
+                    setError(prevErrors => ({ ...prevErrors, email: response.data.errors.email }));
+                }
+                if(response.data.errors.password!==''){
+                    setError(prevErrors => ({ ...prevErrors, password: response.data.errors.password }));
+                }
+            }
+        });
+    }
 
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <button className={`close-button ${isArabic ? 'rtl' : ''}`} onClick={onClose}>&times;</button>
+                <button className={`close-button ${isArabic ? 'rtl' : ''}`} onClick={()=>navigate("/guest")}>&times;</button>
 
-                <h2 className="form-title">{isArabic ? "نموذج التسجيل" : "Registration Form"}</h2>
+                <h2 className="form-title">{isArabic ? "إنشاء حساب جديد" : "Create New Account"}</h2>
 
-                <form onSubmit={handleSubmit} className="register-form" method="post">
-                    <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
+                <form onSubmit={Submit} className="register-form" method="post">
+                    {/* User Name */}
+                    <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.name ? 'err' : ''}`} >
                         <label htmlFor="user_name"><i className="fa fa-user" aria-hidden="true"></i></label>
                         <input 
                             type="text"
@@ -42,27 +64,28 @@ export default function RegisterForm({ isOpen, onClose, isArabic }) {
                             aria-label={isArabic ? "ادخل إسمك" : "Enter your name"}
                             id="user_name"
                             name="user_name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            ref={nameRef}
                         />
-                        {errors.name && <p style={{color:"red"}} className="error">{errors.name[0]}</p>}
                     </div>
+                    <p className="error" style={{ visibility: error.name ? 'visible' : 'hidden' }}>{error.name}</p>
 
-                    <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
+                    {/* Email */}
+                    <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.email ? 'err' : ''}`}>
                         <label htmlFor="email"><i className="fa fa-envelope" aria-hidden="true"></i></label>
                         <input 
                             type="email"
-                            placeholder={isArabic ? "البريد الالكتروني: example@gmail.com" : "example@gmail.com"}
+                            placeholder="example@gmail.com"
                             aria-label={isArabic ? "ادخل البريد الالكتروني" : "Enter your email"}
                             id="email"
                             name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            ref={emailRef}
                         />
-                        {errors.email && <p className="error">{errors.email[0]}</p>}
-                    </div>
 
-                    <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
+                    </div>
+                    <p className="error" style={{ visibility: error.email ? 'visible' : 'hidden' }}>{error.email}</p>
+
+                    {/* Password */}
+                    <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.password ? 'err' : ''}`}>
                         <label htmlFor="password"><i className="fa fa-key" aria-hidden="true"></i></label>
                         <input 
                             type="password"
@@ -70,12 +93,13 @@ export default function RegisterForm({ isOpen, onClose, isArabic }) {
                             aria-label={isArabic ? "ادخل كلمة المرور" : "Enter your password"}
                             id="password"
                             name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            ref={passwordRef}
                         />
                     </div>
+                    <p className="error" style={{ visibility: error.password ? 'visible' : 'hidden' }}>{error.password}</p>
 
-                    <div className={`form-input ${isArabic ? 'rtl' : ''}`}>
+                    {/* Password Confirmation */}
+                    <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.password ? 'err' : ''}`}>
                         <label htmlFor="password_confirmation"><i className="fa fa-lock" aria-hidden="true"></i></label>
                         <input 
                             type="password"
@@ -83,12 +107,17 @@ export default function RegisterForm({ isOpen, onClose, isArabic }) {
                             aria-label={isArabic ? "نأكيد كلمة المرور" : "Confirm your password"}
                             id="password_confirmation"
                             name="password_confirmation"
-                            value={password_confirmation}
-                            onChange={(e) => setPasswordConfirmation(e.target.value)}
+                            ref={password_confirmationRef}
                         />
                     </div>
 
                     <button type="submit" className="register-button">{isArabic ? "سجّل" : "Register"}</button>
+
+                    <p className="form-guest-question">
+                        {isArabic ? "هل لديك حساب؟" : "Already have an Account? "} <Link to='/guest/login'>{isArabic ? "تسجيل الدخول" : "Login"}</Link> 
+                    </p>
+
+
                 </form>
             </div>
         </div>
