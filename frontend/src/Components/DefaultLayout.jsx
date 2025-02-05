@@ -13,14 +13,14 @@ import { useStateContext } from "../contexts/contextProvider.jsx";
 import { Navigate } from "react-router-dom";
 
 export default function DefaultLayout(){
-    const {user, token, isArabic, setIsArabic} = useStateContext();
+    const {token, isArabic, setIsArabic} = useStateContext();
+    const [showNewsDetails, setShowNewsDetails] = useState(false); 
+    const [newsDetails, setNewsDetails] = useState(null);
+
     if(!token){
         return <Navigate to='/guest' />
     }
 
-
-    const [showNewsDetails, setShowNewsDetails] = useState(false); 
-    const [newsDetails, setNewsDetails] = useState(null);
 
     function handleCategoryClick(data) {
         setNewsDetails(data);  

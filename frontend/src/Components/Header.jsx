@@ -1,24 +1,30 @@
 /* eslint-disable react/prop-types */
 
 import babelImage from "../assets/babelLogo.png"
-// import RegisterForm from "./Forms/RegisterForm"
-// import LoginForm from "./Forms/LoginFom";
-import { useState } from "react";
+
 import { useStateContext } from "../contexts/contextProvider.jsx";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import axiosClient from "../axiosClient.js";
 
 export default function Header(){
-    const {user, token, isArabic} = useStateContext();
-    let name = "Guest:";
-    if(token){
-        name = "Welcome " + user.name;
-    }
+    const {token, isArabic, setToken} = useStateContext();
+
+    const handleLogout = () => {
+        axiosClient.post('/logout')
+        .then(() => {
+            setToken(null); 
+        })
+        .catch(err => {
+            console.error("Logout error:", err);
+        });
+    };
+
     function headerLink(){
         if(token){
             return(
-                <Link to="/guest" className="logout-link">
+                <span onClick={handleLogout} className="logout-link" style={{ cursor: "pointer" }}>
                     {isArabic ? "تسجيل الخروج" : "Logout"}
-                </Link>
+                </span>
             )
         }
         else{
@@ -33,9 +39,7 @@ export default function Header(){
     return(
         <header>
             <div className="link-part">
-                <span>{name}</span>
                 {headerLink()}
-   
             </div>
             <div className="image-part">
                 <img src={babelImage} alt="Logo" className="logo" />

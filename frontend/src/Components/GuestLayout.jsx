@@ -1,13 +1,18 @@
 import { useStateContext } from "../contexts/contextProvider.jsx";
 import { Outlet, useNavigate, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import eng from "../assets/eng.png";
 import ara from "../assets/ara.png";
 import Header from "./Header.jsx"
 
 export default function GuestLayout(){
-    const {token, isArabic, setIsArabic} = useStateContext();
+    const {token, isArabic, setIsArabic, setError} = useStateContext();
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        setError({ name: '', email: '', password: '' }); // Reset error state when the path changes
+    }, [location.pathname]);
 
     if(token){
        return <Navigate to='/' />
@@ -17,6 +22,7 @@ export default function GuestLayout(){
     return(
         <>
             <article className="Home-page"> 
+
                 <div className="settings">
                     <label className="toggle-switch">
                         <input type="checkbox" onChange={() => setIsArabic()} />
@@ -27,7 +33,10 @@ export default function GuestLayout(){
                         </span>
                     </label>
                 </div>
+
+
                 <Header/>
+
                 <div className="guest-message-container">
                     <p className="guest-message">
                         {
@@ -40,7 +49,9 @@ export default function GuestLayout(){
                     </p>
                     <button onClick={() => navigate("/guest/login")} className="register-button">{isArabic ? "تسجيل الدخول" : "Login"}</button>
                 </div>
+
             </article>
+            
             <Outlet />
         </>
 
