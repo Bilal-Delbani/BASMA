@@ -8,7 +8,7 @@ import NewsPage from "./NewsPage.jsx";
 import eng from "../assets/eng.png";
 import ara from "../assets/ara.png";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStateContext } from "../contexts/contextProvider.jsx";
 import { Navigate } from "react-router-dom";
 
@@ -16,10 +16,18 @@ export default function DefaultLayout(){
     const {token, isArabic, setIsArabic} = useStateContext();
     const [showNewsDetails, setShowNewsDetails] = useState(false); 
     const [newsDetails, setNewsDetails] = useState(null);
+    
+    useEffect(() => {
+        // Scroll to top whenever the page is rendered
+        window.scrollTo(0, 0);
+      }, []);
+
 
     if(!token){
         return <Navigate to='/guest' />
     }
+
+  
 
 
     function handleCategoryClick(data) {
@@ -56,7 +64,6 @@ export default function DefaultLayout(){
                     <NewsCategories onCategoryClick={handleCategoryClick} />
                     <MostRead />
                     <Footer />           
-
 
                 </>
             )}

@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
 
- import "./RegisterForm.css"; // Add styles for the form
- import { useStateContext } from "../../contexts/contextProvider.jsx";
- import { Link, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import "./RegisterForm.css"; // Add styles for the form
+import { useStateContext } from "../../contexts/contextProvider.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 import axiosClient from "../../axiosClient.js";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginForm() {
-
+    const [captcha, setCaptcha] = useState(null);
     const emailRef = useRef();
     const passwordRef = useRef();
+
     const {isArabic, error, setUser, setToken, setError} = useStateContext();
     const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ export default function LoginForm() {
         const payload = {
             email: emailRef.current.value,
             password: passwordRef.current.value,
+            recaptcha: captcha,
         }
         axiosClient.post("/login", payload).then(({data}) =>{
             setUser(data.user);
@@ -30,12 +33,14 @@ export default function LoginForm() {
                 alert("Unauthorized User, please check your credentials if you already have an account; otherwise, you can create a new one");
             }
             if(response && response.status === 422){
-                // console.log(response.data.email)
                 if(response.data.email!==''){
                     setError(prevErrors => ({ ...prevErrors, email: response.data.email }));
                 }
                 if(response.data.password!==''){
                     setError(prevErrors => ({ ...prevErrors, password: response.data.password }));
+                }
+                if(response.data.recaptcha!==''){
+                    setError(prevErrors => ({ ...prevErrors, recaptcha: response.data.recaptcha }));
                 }
             }
         });
@@ -58,6 +63,7 @@ export default function LoginForm() {
                             id="email"
                             name="email"
                             ref={emailRef}
+                            required
 
                         />
                     </div>
@@ -73,10 +79,21 @@ export default function LoginForm() {
                             id="password"
                             name="password"
                             ref={passwordRef}
+                            required
 
                         />
                     </div>
                     <p className="error" style={{ visibility: error.password ? 'visible' : 'hidden' }}>{error.password}</p>
+
+
+                    <ReCAPTCHA
+                        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                        onChange={(value) => setCaptcha(value)} 
+                    />  {/* use recaptcha to prevent Brute Force Attacks, reduce Bot Activity and block Credential Stuffing*/}
+                    
+
+                    <p className="error" style={{ visibility: error.recaptcha ? 'visible' : 'hidden' }}>{error.recaptcha}</p>
+
 
                     <button className="register-button">{isArabic ? "تسجيل الدخول" : "Login"}</button>
 

@@ -11,7 +11,7 @@ export default function GuestLayout(){
     const navigate = useNavigate();
     
     useEffect(() => {
-        setError({ name: '', email: '', password: '' }); // Reset error state when the path changes
+        setError({ email: '', password: '', recaptcha:''}); // Reset error state when the path changes
     }, [location.pathname]);
 
     if(token){
