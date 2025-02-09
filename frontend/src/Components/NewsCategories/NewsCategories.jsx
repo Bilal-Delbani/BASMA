@@ -1,17 +1,16 @@
-/* eslint-disable react/prop-types */
-
 import { useState, useEffect } from "react";
 import Category from "./Category";
 import { useStateContext } from "../../contexts/contextProvider.jsx";
+import axiosClient from "../../axiosClient.js";
 
-export default function NewsCategories({onCategoryClick}){
-    const {isArabic} = useStateContext();
+export default function NewsCategories({ onCategoryClick }) {
+    const { isArabic } = useStateContext();
+    const [englishData, setEnglishData] = useState(null);
+    const [arabicData, setArabicData] = useState(null);
+    const [news, setNews] = useState(null);
+    const [newsCategories, setNewsCategories] = useState([]); // Store processed categories
+    const [loading, setLoading] = useState(true);
 
-    const [englishData, setEnglishData] = useState([]);
-    const [arabicData, setArabicData] = useState([]);
-    const [news, setNews] = useState([]);
-
-    // Fetch both English and Arabic data
     useEffect(() => {
         const fetchNews = async () => {
             try {
@@ -27,38 +26,57 @@ export default function NewsCategories({onCategoryClick}){
 
                 setEnglishData(engData);
                 setArabicData(arData);
+                setLoading(false); // Data has been fetched
+
             } catch (error) {
                 console.error("Error fetching images:", error);
+                setLoading(false); // Avoid infinite loading state
             }
         };
 
         fetchNews();
     }, []);
 
-
     useEffect(() => {
-        if (isArabic) {
-            setNews(arabicData);
-        } else {
-            setNews(englishData);
+        if (englishData && arabicData) {
+            setNews(isArabic ? arabicData : englishData);
         }
     }, [isArabic, englishData, arabicData]);
 
+    useEffect(() => {
+        if (news && news.length > 0) {
+            axiosClient.get('/categories/analytics/24hours', { params: { news } })
+                .then(({ data }) => {
+                    console.log(data)
+                    const processedCategories = data.map((item, index) => {
+                        let class_Name = index === 0 ? "large-box" : "small-box";
 
+                        return (
+                            <Category
+                                key={index}
+                                {...item}
+                                onCategoryClick={onCategoryClick}
+                                class_Name={class_Name}
+                            />
+                        );
+                    });
+                    setNewsCategories(processedCategories);
+                })
+                .catch(err => {
+                    const response = err.response;
+                    if (response && response.status === 401) {
+                        alert(response.data.error);
+                    }
+                });
+        }
+    }, [news]); // Only run when news is ready
 
-    const newsCategories = news.map((item) => {
-        return (
-            <Category
-                key={item.id}
-                {...item}
-                onCategoryClick = {onCategoryClick}
-            />
-        );
-    });
-    
-    return(
-       <section className={`news-categories ${isArabic ? 'rtl' : ''}`}>
+    // Show loading message
+    if (loading) return <p style={{color:"black"}}>Loading news...</p>;
+
+    return (
+        <section className={`news-categories ${isArabic ? 'rtl' : ''}`}>
             {newsCategories}
-       </section> 
-    )
+        </section>
+    );
 }

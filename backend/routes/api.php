@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use app\Http\Controllers\Auth;
 use App\Http\Controllers\API\JWTAuthController;
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\CategoryClickController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +32,9 @@ Route::group([
     Route::post('register', [JWTAuthController::class, 'register']);
     Route::post('login', [JWTAuthController::class, 'login']);
     Route::post('logout', [JWTAuthController::class, 'logout']);
+    Route::post('categories/{slug}/click', [CategoryClickController::class, 'store']);
+    Route::get('categories/analytics/{period}', [CategoryClickController::class, 'analytics']);
+
     Route::post('refresh', [JWTAuthController::class, 'refresh']);
     Route::get('user-profile', [JWTAuthController::class, 'profile']);
 });

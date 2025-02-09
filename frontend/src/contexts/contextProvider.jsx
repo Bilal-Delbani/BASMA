@@ -14,10 +14,10 @@ const stateContext = createContext({
 });
 
 export const ContextProvider = ({children}) => {
-    const [user, setUser] = useState({});
+    const [user, _setUser] = useState(JSON.parse(localStorage.getItem("user"))||null);
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
     const [isArabic, setIsArabic] = useState(false);
-    const [error, setError] = useState({name:'', email:'', password: ''});
+    const [error, setError] = useState({email:'', password: '', recaptcha:''});
 
 
     const setToken = (token) => {
@@ -27,6 +27,15 @@ export const ContextProvider = ({children}) => {
         }
         else{
             localStorage.removeItem('ACCESS_TOKEN');
+        }
+    }
+    const setUser = (user) => {
+        _setUser(user)
+        if(user){
+            localStorage.setItem('user', JSON.stringify(user))
+        }
+        else{
+            localStorage.removeItem('user');
         }
     }
 

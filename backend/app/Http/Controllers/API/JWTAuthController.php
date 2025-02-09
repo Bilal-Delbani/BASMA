@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Http;
+
+
 class JWTAuthController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -26,11 +29,15 @@ class JWTAuthController extends BaseController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|between:2,100',
+            'name' => 'required|between:1,100',
             'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+            'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+
+        ], [
+            'password.regex' => 'The password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.',
         ]);
 
+    
         $user = User::create(array_merge(
                     $validator->validated(),
                     ['password' => bcrypt($request->password)]
@@ -49,16 +56,33 @@ class JWTAuthController extends BaseController
 
     public function login(Request $request)
     {
+
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:8',
+            'recaptcha' => 'required'
         ]);
+
+        $recaptchaSecret = env('RECAPTCHA_SECRET');
+        $recaptchaResponse = $request->input('recaptcha');
+
+        $response = Http::asForm()->post("https://www.google.com/recaptcha/api/siteverify", [
+            'secret' => $recaptchaSecret,
+            'response' => $recaptchaResponse
+        ]);
+    
+
+
+        if (!$response->json()['success']) {
+            return response()->json(['recaptcha' => 'Invalid ReCaptcha'], 422);
+        }
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
-        if (! $token = auth()->attempt($validator->validated())) {
+        $credentials = $request->only('email', 'password');
+        if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->createNewToken($token);

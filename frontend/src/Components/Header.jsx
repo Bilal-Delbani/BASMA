@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import axiosClient from "../axiosClient.js";
 
 export default function Header(){
-    const {token, isArabic, setToken} = useStateContext();
+    const {user, token, isArabic, setToken} = useStateContext();
 
     const handleLogout = () => {
         axiosClient.post('/logout')
@@ -22,9 +22,14 @@ export default function Header(){
     function headerLink(){
         if(token){
             return(
-                <span onClick={handleLogout} className="logout-link" style={{ cursor: "pointer" }}>
-                    {isArabic ? "تسجيل الخروج" : "Logout"}
-                </span>
+                <>
+                    <span style={{color:"black", width:"130px",fontSize:"14px"}}>
+                        {user.name}
+                    </span>
+                    <span onClick={handleLogout} className="logout-link" style={{ cursor: "pointer" }}>
+                        {isArabic ? "تسجيل الخروج" : "Logout"}
+                    </span>
+                </>
             )
         }
         else{

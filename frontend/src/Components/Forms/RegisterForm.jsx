@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
- import "./RegisterForm.css"; // Add styles for the form
+import "./RegisterForm.css"; // Add styles for the form
 import { useRef } from "react";
 import { useStateContext } from "../../contexts/contextProvider.jsx";
 import { Link, useNavigate} from "react-router-dom";
@@ -15,7 +15,6 @@ export default function RegisterForm() {
     const nameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const password_confirmationRef = useRef();
 
 
 
@@ -25,7 +24,7 @@ export default function RegisterForm() {
             name: nameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
-            password_confirmation: password_confirmationRef.current.value,
+
         }
 
         axiosClient.post("/register", payload).then(({data}) =>{
@@ -34,15 +33,15 @@ export default function RegisterForm() {
         }).catch(err => {
             const response = err.response;
             if(response && response.status === 422){
-                if(response.data.errors.name!==''){
-                    setError(prevErrors => ({ ...prevErrors, name: response.data.errors.name }));
-                }
+
                 if(response.data.errors.email!==''){
                     setError(prevErrors => ({ ...prevErrors, email: response.data.errors.email }));
                 }
                 if(response.data.errors.password!==''){
                     setError(prevErrors => ({ ...prevErrors, password: response.data.errors.password }));
                 }
+
+
             }
         });
     }
@@ -56,7 +55,7 @@ export default function RegisterForm() {
 
                 <form onSubmit={Submit} className="register-form" method="post">
                     {/* User Name */}
-                    <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.name ? 'err' : ''}`} >
+                    <div className={`form-input special_input ${isArabic ? 'rtl' : ''}`} >
                         <label htmlFor="user_name"><i className="fa fa-user" aria-hidden="true"></i></label>
                         <input 
                             type="text"
@@ -65,9 +64,9 @@ export default function RegisterForm() {
                             id="user_name"
                             name="user_name"
                             ref={nameRef}
+                            required
                         />
                     </div>
-                    <p className="error" style={{ visibility: error.name ? 'visible' : 'hidden' }}>{error.name}</p>
 
                     {/* Email */}
                     <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.email ? 'err' : ''}`}>
@@ -79,6 +78,7 @@ export default function RegisterForm() {
                             id="email"
                             name="email"
                             ref={emailRef}
+                            required
                         />
 
                     </div>
@@ -94,22 +94,10 @@ export default function RegisterForm() {
                             id="password"
                             name="password"
                             ref={passwordRef}
+                            required
                         />
                     </div>
                     <p className="error" style={{ visibility: error.password ? 'visible' : 'hidden' }}>{error.password}</p>
-
-                    {/* Password Confirmation */}
-                    <div className={`form-input ${isArabic ? 'rtl' : ''} ${error.password ? 'err' : ''}`}>
-                        <label htmlFor="password_confirmation"><i className="fa fa-lock" aria-hidden="true"></i></label>
-                        <input 
-                            type="password"
-                            placeholder={isArabic ? "تأكيد كلمة المرور" : "Confirm your password"}
-                            aria-label={isArabic ? "نأكيد كلمة المرور" : "Confirm your password"}
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            ref={password_confirmationRef}
-                        />
-                    </div>
 
                     <button type="submit" className="register-button">{isArabic ? "سجّل" : "Register"}</button>
 
