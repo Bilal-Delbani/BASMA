@@ -58,7 +58,7 @@ class CategoryClickController extends Controller {
                 ->count('user_id');
 
             return [
-                'info' => $news[$category->id-1],
+                'info' => isset($news[$category->id - 1]) ? $news[$category->id - 1] : $category->name_en,
                 'total_clicks' => $totalClicks,
                 'unique_clicks' => $uniqueClicks,
             ];
