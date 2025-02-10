@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Http;
 
+use Illuminate\Support\Facades\Log;
 
 class JWTAuthController extends BaseController
 {
@@ -65,6 +66,7 @@ class JWTAuthController extends BaseController
         ]);
 
         $recaptchaSecret = env('RECAPTCHA_SECRET');
+
         $recaptchaResponse = $request->input('recaptcha');
 
         $response = Http::asForm()->post("https://www.google.com/recaptcha/api/siteverify", [
