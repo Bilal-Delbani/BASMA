@@ -20,9 +20,6 @@ use App\Http\Controllers\API\CategoryClickController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
 
 Route::group([
@@ -34,15 +31,6 @@ Route::group([
     Route::post('logout', [JWTAuthController::class, 'logout']);
     Route::post('categories/{slug}/click', [CategoryClickController::class, 'store']);
     Route::get('categories/analytics/{period}', [CategoryClickController::class, 'analytics']);
-
     Route::post('refresh', [JWTAuthController::class, 'refresh']);
-    Route::get('user-profile', [JWTAuthController::class, 'profile']);
 });
 
-Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('/posts', [PostController::class, 'index']);
-    Route::get('post/{id}', [PostController::class, 'show']);
-    Route::post('/posts', [PostController::class, 'store']);
-    Route::post('post/{id}', [PostController::class, 'update']);
-    Route::post('posts/{id}', [PostController::class, 'destroy']); 
-});
