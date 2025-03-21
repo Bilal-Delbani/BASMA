@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 
 import NavMenu from "./NavMenu";
 import Carousel from "./Carousel"
