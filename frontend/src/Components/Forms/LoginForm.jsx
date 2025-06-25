@@ -87,8 +87,9 @@ export default function LoginForm() {
 
 
                     <ReCAPTCHA
-                        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                        onChange={(value) => setCaptcha(value)} 
+                        // sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                        onChange={(value) => setCaptcha(value)}
                     />  {/* use recaptcha to prevent Brute Force Attacks, reduce Bot Activity and block Credential Stuffing*/}
                     
 

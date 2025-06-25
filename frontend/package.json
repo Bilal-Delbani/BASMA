@@ -12,11 +12,11 @@
   },
   "dependencies": {
     "@react-email/components": "^0.0.32",
-    "axios": "^1.7.9",
+    "axios": "^1.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-google-recaptcha": "^3.1.0",
-    "react-router-dom": "^7.1.4",
+    "react-router-dom": "^7.6.2",
     "react-scripts": "^5.0.0"
   },
   "devDependencies": {

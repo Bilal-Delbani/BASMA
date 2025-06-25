@@ -65,6 +65,10 @@ class JWTAuthController extends BaseController
             'recaptcha' => 'required'
         ]);
 
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
         $recaptchaSecret = env('RECAPTCHA_SECRET');
 
         $recaptchaResponse = $request->input('recaptcha');
@@ -80,9 +84,7 @@ class JWTAuthController extends BaseController
             return response()->json(['recaptcha' => 'Invalid ReCaptcha'], 422);
         }
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+
         $credentials = $request->only('email', 'password');
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
